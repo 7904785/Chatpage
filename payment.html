@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Page</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+    body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.chat-container {
+    max-width: 400px;
+    margin: 50px auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+.chat-box {
+    height: 300px;
+    overflow-y: scroll;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+.input-container {
+    display: flex;
+    margin-top: 10px;
+}
+
+#user-input {
+    flex: 1;
+    padding: 5px;
+}
+
+#send-btn {
+    padding: 5px 10px;
+}
+</style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-box" id="chat-box">
+            <!-- Messages will be displayed here -->
+        </div>
+        <div class="input-container">
+            <input type="text" id="user-input" placeholder="Type your message...">
+            <button id="send-btn">Send</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const chatBox = document.getElementById('chat-box');
+    const userInput = document.getElementById('user-input');
+    const sendBtn = document.getElementById('send-btn');
+
+    // Function to add a new message to the chat box
+    function addMessage(message, sender) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'message';
+        messageDiv.innerText = `${sender}: ${message}`;
+        chatBox.appendChild(messageDiv);
+        chatBox.scrollTop = chatBox.scrollHeight; // Scroll to the bottom to see the latest message
+    }
+
+    // Event listener for the send button
+    sendBtn.addEventListener('click', function () {
+        const message = userInput.value.trim();
+        if (message !== '') {
+            addMessage(message, 'You');
+            userInput.value = '';
+        }
+    });
+
+    // Event listener for the enter key to send messages
+    userInput.addEventListener('keypress', function (event) {
+        if (event.key === 'Enter') {
+            sendBtn.click();
+        }
+    });
+});
+
+</script>
+</body>
+</html>
